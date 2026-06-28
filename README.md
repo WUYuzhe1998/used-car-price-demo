@@ -85,6 +85,8 @@ After prediction, the app calculates the price position:
 
 Risk is rule-based because the dataset does not contain a true fraud or post-purchase failure label. Risk increases for accident history, no full service history, many previous owners, private seller, low seller rating, very low or missing rating count, and missing important fields.
 
+The listing price is also checked after model prediction. If it is far below the predicted P10 market price, the app treats it as a post-prediction price anomaly and raises the risk level. This protects the demo from labeling unrealistically cheap listings as normal good deals.
+
 Final verdict:
 
 - Below Market + Low Risk or Medium Risk: Good Deal

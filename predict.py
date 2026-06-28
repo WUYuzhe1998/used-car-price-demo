@@ -174,6 +174,38 @@ def risk_level(score: int) -> str:
     return "High Risk"
 
 
+def is_severely_below_market(listing_price: float | None, p10: float) -> bool:
+    if listing_price is None or p10 <= 0:
+        return False
+    return listing_price < p10 * 0.70
+
+
+def add_price_anomaly_risk(
+    risk: dict[str, Any],
+    listing_price: float | None,
+    p10: float,
+) -> dict[str, Any]:
+    adjusted = {
+        "risk_score": int(risk["risk_score"]),
+        "risk_level": risk["risk_level"],
+        "risk_factors": list(risk["risk_factors"]),
+    }
+    if not is_severely_below_market(listing_price, p10):
+        return adjusted
+
+    if adjusted["risk_factors"] == ["No major risk signals from available fields"]:
+        adjusted["risk_factors"] = []
+
+    ratio = listing_price / p10 if listing_price is not None and p10 > 0 else 0.0
+    adjusted["risk_score"] += 4
+    adjusted["risk_level"] = risk_level(adjusted["risk_score"])
+    adjusted["risk_factors"].append(
+        f"Listing price is severely below the predicted P10 market price "
+        f"({ratio:.0%} of P10)"
+    )
+    return adjusted
+
+
 def compute_risk_score(vehicle: dict[str, Any]) -> dict[str, Any]:
     score = 0
     factors: list[str] = []
@@ -317,7 +349,11 @@ def predict_from_artifacts(
 
     listing_value = None if listing_price is None else float(listing_price)
     position = price_position(listing_value, p10, p90)
-    risk = compute_risk_score(model_input)
+    risk = add_price_anomaly_risk(
+        compute_risk_score(model_input),
+        listing_price=listing_value,
+        p10=p10,
+    )
 
     return {
         "car_summary": car_summary(model_input),
