@@ -51,6 +51,12 @@ def verdict_color(verdict: str) -> str:
     return "off"
 
 
+def normalize_seller_type(value: str) -> str:
+    if value == "Private seller":
+        return "PrivateSeller"
+    return value
+
+
 model_dir = Path(DEFAULT_MODEL_DIR)
 
 st.title("Vehicle Fair Market Price Range")
@@ -137,9 +143,9 @@ with st.form("vehicle_form"):
     s1, s2, s3, s4 = st.columns(4)
     with s1:
         nr_prev_owners = st.number_input("Previous owners", min_value=0, value=1, step=1)
-        seller_type = st.selectbox("Seller type", ["Unknown", "Dealer", "PrivateSeller"], index=1)
+        seller_type = st.selectbox("Seller type", ["Unknown", "Dealer", "Private seller"], index=1)
     with s2:
-        seller_is_dealer = bool_select("Dealer seller", value="Yes")
+        seller_is_dealer = bool_select("Is the seller a dealer?", value="Yes")
         country_code = st.text_input("Country code", value="DE")
     with s3:
         ratings_average = st.number_input(
@@ -180,7 +186,7 @@ if submitted:
         "had_accident": had_accident,
         "nr_prev_owners": int(nr_prev_owners),
         "has_full_service_history": has_full_service_history,
-        "seller_type": seller_type,
+        "seller_type": normalize_seller_type(seller_type),
         "seller_is_dealer": seller_is_dealer,
         "ratings_average": float(ratings_average),
         "ratings_count": int(ratings_count),
