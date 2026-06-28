@@ -1,7 +1,5 @@
---extra-index-url https://download.pytorch.org/whl/cpu
 numpy>=1.26,<3
 pandas>=2.2,<3
 scikit-learn>=1.4,<2
-torch==2.5.1+cpu
+torch @ https://download.pytorch.org/whl/cpu/torch-2.5.1%2Bcpu-cp310-cp310-linux_x86_64.whl
 streamlit>=1.36,<2
-
