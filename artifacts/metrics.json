@@ -1,0 +1,61 @@
+{
+  "primary_split": "test",
+  "test": {
+    "rows": 17758,
+    "p50_mae_eur": 6419.6708984375,
+    "p50_median_absolute_error_eur": 2271.087646484375,
+    "p50_mape_percent_safe": 9.528728485107422,
+    "calibration_true_below_p10_percent": 9.995494988174345,
+    "calibration_true_below_p50_percent": 46.001802004730266,
+    "calibration_true_below_p90_percent": 91.47989638472801,
+    "coverage_inside_p10_p90_percent": 81.48440139655366,
+    "average_interval_width_eur": 21719.65625,
+    "pinball_p10_log_price": 0.026058943942189217,
+    "pinball_p50_log_price": 0.0483146570622921,
+    "pinball_p90_log_price": 0.02317245490849018
+  },
+  "validation": {
+    "rows": 17757,
+    "p50_mae_eur": 6231.6123046875,
+    "p50_median_absolute_error_eur": 2219.861328125,
+    "p50_mape_percent_safe": 9.431740760803223,
+    "calibration_true_below_p10_percent": 9.928478909725742,
+    "calibration_true_below_p50_percent": 46.032550543447655,
+    "calibration_true_below_p90_percent": 91.74410091794785,
+    "coverage_inside_p10_p90_percent": 81.82125359013347,
+    "average_interval_width_eur": 20273.8203125,
+    "pinball_p10_log_price": 0.02648133970797062,
+    "pinball_p50_log_price": 0.047834016382694244,
+    "pinball_p90_log_price": 0.02364666573703289
+  },
+  "train": {
+    "rows": 82867,
+    "p50_mae_eur": 4684.93798828125,
+    "p50_median_absolute_error_eur": 1807.271484375,
+    "p50_mape_percent_safe": 85.6301040649414,
+    "calibration_true_below_p10_percent": 6.648002220425502,
+    "calibration_true_below_p50_percent": 44.62813906621454,
+    "calibration_true_below_p90_percent": 95.47588304150023,
+    "coverage_inside_p10_p90_percent": 88.82788082107473,
+    "average_interval_width_eur": 21090.673828125,
+    "pinball_p10_log_price": 0.02110028825700283,
+    "pinball_p50_log_price": 0.03682343289256096,
+    "pinball_p90_log_price": 0.018361343070864677
+  },
+  "rows_total_after_cleaning": 118382,
+  "rows_train": 82867,
+  "rows_validation": 17757,
+  "rows_test": 17758,
+  "best_epoch": 685,
+  "best_validation_quantile_loss_log_price": 0.09796202149538599,
+  "quantiles": [
+    0.1,
+    0.5,
+    0.9
+  ],
+  "target": "price",
+  "target_transform": "log1p",
+  "model_objective": "P10/P50/P90 price range quantile regression only",
+  "deal_verdict_classifier_trained": false,
+  "verdict_logic": "post_processing_predicted_range_plus_listing_price_plus_rule_based_risk"
+}

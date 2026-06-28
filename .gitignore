@@ -1,0 +1,37 @@
+# Python/cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+.env
+
+# Raw data and archives
+*.zip
+*.csv
+data/
+
+# Training outputs and experiment folders
+outputs*/
+artifacts_lr*/
+artifacts_wide*/
+outputs_mlp*/
+outputs_transformer*/
+
+# Keep only the deployment artifacts required by the Streamlit app.
+artifacts/*
+!artifacts/
+!artifacts/best_model.pt
+!artifacts/scaler.pkl
+!artifacts/vocabularies.json
+!artifacts/feature_config.json
+!artifacts/metrics.json
+
+# Logs and local runtime files
+*.log
+.streamlit/secrets.toml
